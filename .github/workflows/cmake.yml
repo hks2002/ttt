@@ -19,8 +19,8 @@ jobs:
       matrix:
         link: [ 'STATIC', 'SHARED' ]
     steps:
-      - name: Checkout Trantor source code
-        uses: actions/checkout@v2
+      - name: Checkout source code
+        uses: actions/checkout@v4
         with:
           submodules: false
 
@@ -33,12 +33,12 @@ jobs:
         working-directory: ./build
         if: ${{matrix.link}} == "SHARED" 
         run: |
-          cmake .. \
-          -DTRANTOR_USE_TLS=${{matrix.tls-provider}} \
-          -DCMAKE_BUILD_TYPE=${{matrix.build-type}} \
-          -DCMAKE_INSTALL_PREFIX=../install \
-          -DUSE_SPDLOG=ON \
-          -DBUILD_TESTING=ON \
+          cmake .. 
+          -DTRANTOR_USE_TLS=${{matrix.tls-provider}} 
+          -DCMAKE_BUILD_TYPE=${{matrix.build-type}} 
+          -DCMAKE_INSTALL_PREFIX=../install 
+          -DUSE_SPDLOG=ON 
+          -DBUILD_TESTING=ON 
           -DBUILD_SHARED_LIBS=ON
   
       - name: Create Build Environment & Configure Cmake STATIC
@@ -46,11 +46,11 @@ jobs:
         working-directory: ./build
         if: ${{matrix.link}} == "STATIC"
         run: |
-          cmake .. \
-          -DTRANTOR_USE_TLS=${{matrix.tls-provider}} \
-          -DCMAKE_BUILD_TYPE=${{matrix.build-type}} \
-          -DCMAKE_INSTALL_PREFIX=../install \
-          -DUSE_SPDLOG=ON \
+          cmake .. 
+          -DTRANTOR_USE_TLS=${{matrix.tls-provider}} 
+          -DCMAKE_BUILD_TYPE=${{matrix.build-type}} 
+          -DCMAKE_INSTALL_PREFIX=../install 
+          -DUSE_SPDLOG=ON 
           -DBUILD_TESTING=ON 
   
       - name: Build
